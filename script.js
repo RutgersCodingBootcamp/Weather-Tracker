@@ -1,15 +1,12 @@
-var APIKey = "08f8917c69ae53232cbcb0b8a4c5e8db";
+var APIKey = "75833e5fbaf17800fbdc8029c299e930";
+var city = "Gloucester City,New Jersey";
 
 var queryURLWeatherData =
   "https://api.openweathermap.org/data/2.5/weather?" +
-  "q=GLoucester&appid=" +
+  "q=" +
+  city +
+  "&appid=" +
   APIKey;
-
-var queryURLForcast =
-  "https://api.openweathermap.org/data/2.5/onecall?lat=0&lon=0&appid=" + APIKey;
-
-var queryURLGeoCoding =
-  "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyD01ZSVinBjwI3BtYhXtTh0B2oi50bLsC8";
 
 $.ajax({
   url: queryURLWeatherData,
@@ -22,18 +19,19 @@ $.ajax({
 
     // Log the resulting object
     console.log(response);
-  });
-
-//GeoCoding API Key AIzaSyBzmUdJnj1Qy8H0bFJtY-NDOqonNXMu_uU
-
-//Ajax call for the 5 day forcast for the area
-$.ajax({ url: queryURLForcast, method: "GET" })
-  //Storing all the retrived data in response
-  .then(function (response) {
-    console.log(response);
-  });
-$.ajax({ url: queryURLGeoCoding, method: "GET" })
-  //Storing all the retrived data in response
-  .then(function (response) {
-    console.log(response);
+    var longitude = response.coord.lon;
+    var latitude = response.coord.lat;
+    var queryURLForcast =
+      "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+      latitude +
+      "&lon=" +
+      longitude +
+      "&appid=" +
+      APIKey;
+    //Ajax call for the 5 day forcast for the area
+    $.ajax({ url: queryURLForcast, method: "GET" })
+      //Storing all the retrived data in response
+      .then(function (response) {
+        console.log(response);
+      });
   });
