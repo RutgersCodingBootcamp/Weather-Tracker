@@ -6,19 +6,47 @@
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-      crossorigin="anonymous"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
 
-    <title>Document</title>
+    <title>Weather App</title>
   </head>
   <body>
-    <header><h1>Weather Dashboard</h1></header>
-    <div id="city-search"></div>
-    <div id="current-city"></div>
+    <header>
+      <h2>Weather Dashboard</h2>
+    </header>
+    <main>
+      <div class="row">
+        <div class="col s3">
+          <div id="city-search" class="card white z-depth-3">
+            <!-- City Search Bar -->
+            <label>Search for City</label>
+            <div id="search-wrapper">
+              <input id="getCity" type="text" />
+              <button id="srch-btn" type="submit">SSS</button>
+            </div>
+          </div>
+        </div>
 
-    <div id="five-day-forcast"></div>
+        <div class="col s8">
+          <div class="row">
+            <div id="info-holder" class="card white z-depth-2">
+              <h5 id="city-date1"></h5>
+              <ul>
+                <li id="temp1"></li>
+                <li id="humidity1"></li>
+                <li id="windSpeed1"></li>
+                <li id="UVIndex1"></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div id="five-day-forcast"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
   </body>
