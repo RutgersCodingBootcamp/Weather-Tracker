@@ -8,14 +8,17 @@ var year = d.getFullYear();
 var formattedDate = month + "/" + day + "/" + year;
 
 //Local Storage Build array of recent searches that become buttons
-var localSearches = localStorage.getItem("recentCities");
+var localSearches = localStorage.getItem("Searched-Cities");
+//check for local storage content to display if content
+var displaySearches = [];
+if (!localSearches) {
+} else {
+  localSearches = JSON.parse(localSearches);
+  displaySearches = localSearches;
+}
 
 //Every Search has to appened to this array but delete after 5 or 6
-var displaySearches = ["Gloucester City", "Las Vegas", "Detroit"];
-
 function displayInformation(city) {
-  // var city = $("#getCity").val();
-  console.log(city);
   var queryURLWeatherData =
     "https://api.openweathermap.org/data/2.5/weather?" +
     "q=" +
@@ -24,8 +27,6 @@ function displayInformation(city) {
     APIKey;
   $("#city-date1").text(city + " " + formattedDate);
 
-  displaySearches + city;
-  var ulist = $("<ul>");
   for (var i = 0; i < displaySearches.length; i++) {
     var newBtn = $("<div>" + displaySearches[i] + "</div>");
     // newBtn.text(displaySearches[i]);
@@ -35,13 +36,8 @@ function displayInformation(city) {
     // newBtn.attr("id", "recent-city-" + i);
     var listItem = $("<li>");
     listItem.append(newBtn);
-    ulist.append(listItem);
   }
-  $("#city-buttons").append(ulist);
-
-  //check for local storage content to display if content
-  if (!localSearches) {
-  }
+  $("#city-buttons").append(listItem);
 
   $.ajax({
     url: queryURLWeatherData,
@@ -49,9 +45,6 @@ function displayInformation(city) {
   })
     // We store all of the retrieved data inside of an object called "response"
     .then(function (response) {
-      // Log the queryURL
-      console.log("Current Weather Data:");
-      console.log(queryURLWeatherData);
       //Current Temp
 
       $("#temp1").text(
@@ -67,7 +60,7 @@ function displayInformation(city) {
       );
 
       // Log the resulting object
-      console.log(response);
+
       var longitude = response.coord.lon;
       var latitude = response.coord.lat;
       var queryURLForcast =
@@ -81,8 +74,6 @@ function displayInformation(city) {
       $.ajax({ url: queryURLForcast, method: "GET" })
         //Storing all the retrived data in response
         .then(function (response) {
-          console.log("5 Day Forcast Data:");
-          console.log(response);
           //Add UV Index to the current
           $("#UVIndex1").text("UVI: " + response.current.uvi);
           $("#five-day-forcast").empty();
@@ -127,22 +118,31 @@ function displayInformation(city) {
             //Append div
 
             $("#five-day-forcast").append(dayDiv);
-            console.log(day);
           }
         });
     });
 }
 $(document).ready(function () {
-  $(document).on("click", ".recent-city", function (e) {
-    city = $(this).text();
+  // $(document).on("click", ".recent-city", function (e) {
+  //   city = $(this).text();
+  //   //Get Inputed City and add to display Searches
+  //   displaySearches += city;
+  //   localStorage.setItem("Searched-Cities", JSON.stringify(displaySearches));
 
-    displayInformation(city);
-  });
+  //   displayInformation(city);
+  // });
 
-  //button click get string of city typed
-  //button #srch-btb from id getCity
   $("#srch-btn").on("click", function () {
     var city = $("#getCity").val();
+
+    console.log(displaySearches);
+
+    displaySearches += city;
+
+    console.log(displaySearches);
+
+    localStorage.setItem("Searched-Cities", JSON.stringify(localSearches));
+
     displayInformation(city);
   });
 });
