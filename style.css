@@ -1,11 +1,3 @@
-#city-search {
-  float: left;
-  background: gray;
-  width: 100%;
-  height: 450px;
-  padding: 10px;
-  border: 1px solid lightgrey;
-}
 button {
   border-radius: 5px;
   position: absolute;
@@ -18,7 +10,31 @@ button {
 button:focus {
   background: royalblue !important;
 }
+#city-search {
+  float: left;
+  background: gray;
+  width: 100%;
+  height: 450px;
+  padding: 10px;
+  border: 1px solid lightgrey;
+}
+.dateTitle {
+  font-size: 15px;
+  font-weight: bold;
+}
 
+.forecast {
+  float: left;
+  background: linear-gradient(
+    37deg,
+    rgba(109, 109, 255, 1) 26%,
+    rgba(157, 238, 255, 1) 100%
+  );
+  color: white;
+  padding: 12px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
 header {
   background: black;
   color: white;
@@ -49,6 +65,28 @@ label {
   color: black !important;
   font-size: 22px !important;
 }
+.recent-city {
+  border: 1px solid lightgray;
+  padding-left: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.recent-city:hover {
+  background: lightblue;
+}
+.recent-city:active .recent-city:focus {
+  background: blue;
+  color: white;
+  top: -1px;
+}
 #search-wrapper {
   position: relative;
+}
+ul {
+  line-height: 40px;
+  font-size: 20px;
+}
+ul p {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 5px;
 }
